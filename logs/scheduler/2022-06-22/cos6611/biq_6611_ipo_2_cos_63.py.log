@@ -1,0 +1,28 @@
+[2022-06-22 10:34:34,099] {processor.py:163} INFO - Started process (PID=25154) to work on /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:34:34,102] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py for tasks to queue
+[2022-06-22 10:34:34,103] {logging_mixin.py:109} INFO - [2022-06-22 10:34:34,103] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:34:34,382] {processor.py:654} INFO - DAG(s) dict_keys(['biq_6611_ipo_2_cos_63.py']) retrieved from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:34:34,397] {logging_mixin.py:109} INFO - [2022-06-22 10:34:34,397] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:34,409] {logging_mixin.py:109} INFO - [2022-06-22 10:34:34,409] {dag.py:2937} INFO - Setting next_dagrun for biq_6611_ipo_2_cos_63.py to 2022-05-16 16:00:00+00:00
+[2022-06-22 10:34:34,415] {processor.py:171} INFO - Processing /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py took 0.325 seconds
+[2022-06-22 10:35:04,764] {processor.py:163} INFO - Started process (PID=25308) to work on /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:04,767] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py for tasks to queue
+[2022-06-22 10:35:04,769] {logging_mixin.py:109} INFO - [2022-06-22 10:35:04,768] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:05,051] {processor.py:654} INFO - DAG(s) dict_keys(['biq_6611_ipo_2_cos_63.py']) retrieved from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:05,066] {logging_mixin.py:109} INFO - [2022-06-22 10:35:05,066] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:05,078] {logging_mixin.py:109} INFO - [2022-06-22 10:35:05,078] {dag.py:2937} INFO - Setting next_dagrun for biq_6611_ipo_2_cos_63.py to 2022-05-16 16:00:00+00:00
+[2022-06-22 10:35:05,097] {processor.py:171} INFO - Processing /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py took 0.340 seconds
+[2022-06-22 10:35:35,346] {processor.py:163} INFO - Started process (PID=25452) to work on /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:35,348] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py for tasks to queue
+[2022-06-22 10:35:35,348] {logging_mixin.py:109} INFO - [2022-06-22 10:35:35,348] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:35,624] {processor.py:654} INFO - DAG(s) dict_keys(['biq_6611_ipo_2_cos_63.py']) retrieved from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:35:35,640] {logging_mixin.py:109} INFO - [2022-06-22 10:35:35,640] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:35,652] {logging_mixin.py:109} INFO - [2022-06-22 10:35:35,652] {dag.py:2937} INFO - Setting next_dagrun for biq_6611_ipo_2_cos_63.py to 2022-05-16 16:00:00+00:00
+[2022-06-22 10:35:35,658] {processor.py:171} INFO - Processing /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py took 0.313 seconds
+[2022-06-22 10:36:06,355] {processor.py:163} INFO - Started process (PID=25603) to work on /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:36:06,356] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py for tasks to queue
+[2022-06-22 10:36:06,357] {logging_mixin.py:109} INFO - [2022-06-22 10:36:06,357] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:36:06,650] {processor.py:654} INFO - DAG(s) dict_keys(['biq_6611_ipo_2_cos_63.py']) retrieved from /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py
+[2022-06-22 10:36:06,666] {logging_mixin.py:109} INFO - [2022-06-22 10:36:06,666] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:36:06,679] {logging_mixin.py:109} INFO - [2022-06-22 10:36:06,679] {dag.py:2937} INFO - Setting next_dagrun for biq_6611_ipo_2_cos_63.py to 2022-05-16 16:00:00+00:00
+[2022-06-22 10:36:06,685] {processor.py:171} INFO - Processing /opt/airflow/dags/cos6611/biq_6611_ipo_2_cos_63.py took 0.332 seconds

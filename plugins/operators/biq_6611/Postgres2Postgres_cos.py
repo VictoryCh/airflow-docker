@@ -7,7 +7,7 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 
-class Postgres2Postgres_decrypt(BaseOperator):
+class Postgres2Postgres_cos(BaseOperator):
     template_fields = ('sql',)
     template_ext = ('.sql',)  # file format
     ui_color = '#e08c8c'
@@ -16,9 +16,8 @@ class Postgres2Postgres_decrypt(BaseOperator):
     @apply_defaults
     def __init__(self, sql, postgres_dest_conn_id=None, parameters=None, autocommit=False, rows_chunk=5000,
                  postgres_source_conn_id=None, dest_schema=None, dest_table=None, dest_cols=None, decrypt_column=None,
-                 trunc=False, *args,
-                 **kwargs):
-        super(Postgres2Postgres_decrypt, self).__init__(*args, **kwargs)
+                 trunc=False, *args, **kwargs):
+        super(Postgres2Postgres_cos, self).__init__(*args, **kwargs)
         if parameters is None:
             parameters = {}
         self.sql = sql  # sql query on source system (here, if necessary, transformations are performed)
@@ -48,7 +47,7 @@ class Postgres2Postgres_decrypt(BaseOperator):
 
             f = None
             decrypt_col_num = []
-            if self.decrypt_column is not   None:
+            if self.decrypt_column is not None:
                 logging.info("Decrypt_col: %s ", self.decrypt_column)
                 key = Variable.get("fernet_secret_key_asup")
                 f = Fernet(key)
@@ -67,8 +66,7 @@ class Postgres2Postgres_decrypt(BaseOperator):
                         else:
                             list.append(f.decrypt(str(cell_value).encode('utf-8')).decode('utf-8'))
                     tr_list.append(tuple(list))
-                dest_hook.insert_rows(self.dest_schema + '.' + self.dest_table, tr_list,
-                                      target_fields=self.dest_cols,
+                dest_hook.insert_rows(self.dest_schema + '.' + self.dest_table, tr_list, target_fields=self.dest_cols,
                                       commit_every=self.rows_chunk)
                 target_rows = cursor.fetchmany(self.rows_chunk)
                 logging.info("Data transfer: %s rows", rows_total)

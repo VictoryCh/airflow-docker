@@ -190,7 +190,7 @@
           <Data ss:Type="String">10</Data>
         </Cell>
         <Cell ss:StyleID="s67">
-          <Data ss:Type="String">1968-01-29</Data>
+          <Data ss:Type="String">19680129</Data>
         </Cell>
       </Row>
       <Row ss:AutoFitHeight="0">
@@ -231,7 +231,7 @@
           <Data ss:Type="String">300</Data>
         </Cell>
         <Cell ss:StyleID="s67">
-          <Data ss:Type="String">1977-10-08</Data>
+          <Data ss:Type="String">19771008</Data>
         </Cell>
       </Row>
       <Row ss:AutoFitHeight="0">
@@ -272,7 +272,7 @@
           <Data ss:Type="String">0</Data>
         </Cell>
         <Cell ss:StyleID="s67">
-          <Data ss:Type="String">1975-02-07</Data>
+          <Data ss:Type="String">19750207</Data>
         </Cell>
       </Row>
     </Table>

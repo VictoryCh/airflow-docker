@@ -1,16 +1,16 @@
-import logging
 import datetime
+import logging
 
-from airflow.models import Variable
-from airflow.providers.samba.hooks.samba import SambaHook
-from airflow.providers.postgres.hooks.postgres import PostgresHook
-from airflow.models import BaseOperator
-from airflow.utils.decorators import apply_defaults
-from cryptography.fernet import Fernet
 import openpyxl
 import xlwt
-import pandas as pd
+from airflow.models import BaseOperator
+from airflow.models import Variable
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from airflow.utils.decorators import apply_defaults
+from cryptography.fernet import Fernet
 from lxml import etree as lxml
+
+
 # import xml.etree.ElementTree as ET
 
 
@@ -24,7 +24,7 @@ class Postgres2SMB_decrypt(BaseOperator):
     def __init__(self, sql, postgres_conn_id=None, parameters=None, autocommit=False, rows_chunk=5000,
                  samba_conn_id=None, headings=None, share=None, dir_samba=None, file_name='test', file_format='csv', delimiter=';',
                  encoding='utf-8', typ=None, modewr='wb', SheetName='Лист1', template_excel_xml=None,
-                 decr_col=None, *args, **kwargs):
+                 decrypt_col=None, *args, **kwargs):
         super(Postgres2SMB_decrypt, self).__init__(*args, **kwargs)
         if parameters is None:
             parameters = {}
@@ -45,9 +45,10 @@ class Postgres2SMB_decrypt(BaseOperator):
         self.modewr = modewr
         self.SheetName = SheetName
         self.template_excel_xml = template_excel_xml
-        self.decr_col = decr_col # пишем из основного запроса
+        self.decrypt_col = decrypt_col # пишем из основного запроса
         self.outputs = {'xml': self.give_excel_xml_output,  # self.give_xml_output,
-                        'xls': self.give_xls_output
+                        'xls': self.give_xls_output,
+                        'xlsx': self.give_xlsx_output
                         }
 
     def _execute(self, src_hook, dest_hook, context):
@@ -83,8 +84,54 @@ class Postgres2SMB_decrypt(BaseOperator):
             context['task_instance'].xcom_push(key='transferSuccess', value=False)
             raise exc
 
+    def give_xlsx_output(self, src_conn, dir_file, context):
+        cursor, q_rows, target_rows = self.get_rows(context, src_conn)
+        f = None
+        decrypt_col_num = []
+        if self.decrypt_col is not None:
+            key = Variable.get("fernet_secret_key_asup")
+            f = Fernet(key)
+            for colno, heading in enumerate(cursor.description, start=0):
+                if heading.name.upper() in self.decrypt_col:
+                    decrypt_col_num.append(colno+1)
+
+        logging.info("decrypt_col_num: %s rows", decrypt_col_num)
+
+        wb = openpyxl.Workbook()
+        wb.encoding = self.encoding
+        ws = wb.active
+        ws.title = 'Лист1'
+        for colno, heading in enumerate(self.headings, start = 1):
+            ws.cell(row = 1, column = colno).value = heading
+        for rowno, row in enumerate(target_rows, start = 2):
+            for colno, cell_value in enumerate(row, start = 1):
+                val = None
+                if colno in decrypt_col_num:
+                    val = f.decrypt(cell_value.encode('utf-8')).decode('utf-8')
+                else:
+                    val = cell_value
+
+                if self.check_date(val):
+                    val = datetime.datetime.strptime(val, '%Y-%m-%d').strftime('%Y%m%d')
+
+                ws.cell(row=rowno, column=colno).value = val
+        with open(dir_file, mode=self.modewr) as tfile:
+            wb.save(tfile)
+        cursor.close()
+        return q_rows
+
+
     def give_xls_output(self, src_conn, dir_file, context):
-        cursor, f, q_rows, target_rows = self.method_name(context, src_conn)
+        cursor, q_rows, target_rows = self.get_rows(context, src_conn)
+        f = None
+        decrypt_col_num = []
+        if self.decrypt_col is not None:
+            key = Variable.get("fernet_secret_key_asup")
+            f = Fernet(key)
+            for colno, heading in enumerate(self.headings, start=0):
+                if heading in self.decrypt_col:
+                    decrypt_col_num.append(colno)
+
         logging.info("Data transfer: %s rows", q_rows)
         wb = xlwt.Workbook(encoding=self.encoding if self.encoding else 'cp1251')
         ws = wb.add_sheet(self.SheetName, cell_overwrite_ok=True)
@@ -92,8 +139,6 @@ class Postgres2SMB_decrypt(BaseOperator):
         style.num_format_str = 'dd.mm.yyyy'
         decrypt_col_num = []
         for colno, heading in enumerate(self.headings, start=0):
-            if heading in self.decr_col:
-                decrypt_col_num.append(colno)
             ws.write(r=0, c=colno, label=heading)
         for rowno, row in enumerate(target_rows, start=1):
             for colno, cell_value in enumerate(row, start=0):
@@ -108,33 +153,30 @@ class Postgres2SMB_decrypt(BaseOperator):
         cursor.close()
         return q_rows
 
-    def method_name(self, context, src_conn):
-        key = Variable.get("fernet_secret_key_asup")
-        f = Fernet(key)
-        cursor = src_conn.cursor()
-        cursor.execute(query=self.render_template(self.sql, context=context), vars=self.parameters)
-        target_rows = cursor.fetchall()
-        q_rows = len(target_rows)
-        return cursor, f, q_rows, target_rows
-
     def get_rows(self, context, src_conn):
         cursor = src_conn.cursor()
         cursor.execute(query=self.render_template(self.sql, context=context), vars=self.parameters)
         target_rows = cursor.fetchall()
         q_rows = len(target_rows)
-        logging.info("Data transfer: %s rows", q_rows)
         return cursor, q_rows, target_rows
+
+    def check_date(self, date_text, date_format='%Y-%m-%d'):
+        try:
+            datetime.datetime.strptime(date_text, date_format)
+            return True
+        except ValueError:
+            return False
 
     def give_excel_xml_output(self, src_conn, dir_file, context):
         cursor, q_rows, target_rows = self.get_rows(context, src_conn)
         f = None
         decrypt_col_num = []
-        if self.decr_col is not None:
-            logging.info("Decrypt_col: %s ", self.decr_col)
+        if self.decrypt_col is not None:
+            logging.info("Decrypt_col: %s ", self.decrypt_col)
             key = Variable.get("fernet_secret_key_asup")
             f = Fernet(key)
             for colno, heading in enumerate(self.headings, start=0):
-                if heading in self.decr_col:
+                if heading in self.decrypt_col:
                     decrypt_col_num.append(colno)
 
         logging.info("Fernet_KEY: %s ", f)
@@ -157,6 +199,9 @@ class Postgres2SMB_decrypt(BaseOperator):
                 else:
                     val = cell_value
 
+                if self.check_date(val):
+                    val = datetime.datetime.strptime(val, '%Y-%m-%d').strftime('%Y%m%d')
+
                 new_cell = lxml.fromstring(
                     '''<Cell xmlns:ss="%s" ss:StyleID="s67"><Data ss:Type="String">%s</Data></Cell>''' % (ss, val))
                 new_row.append(new_cell)
@@ -172,7 +217,7 @@ class Postgres2SMB_decrypt(BaseOperator):
     #
     #     decrypt_col_num = []
     #     for colno, heading in enumerate(self.headings, start=0):
-    #         if heading in self.decr_col:
+    #         if heading in self.decrypt_col:
     #             decrypt_col_num.append(colno)
     #
     #     tree = lxml.parse(self.template_excel_xml, lxml.XMLParser(remove_blank_text=True))

@@ -1,0 +1,28 @@
+[2022-06-22 10:34:26,754] {processor.py:163} INFO - Started process (PID=25107) to work on /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:26,755] {processor.py:642} INFO - Processing file /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py for tasks to queue
+[2022-06-22 10:34:26,755] {logging_mixin.py:109} INFO - [2022-06-22 10:34:26,755] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:27,476] {processor.py:654} INFO - DAG(s) dict_keys(['cso_2295_ipo_2_cso_xls.py']) retrieved from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:27,504] {logging_mixin.py:109} INFO - [2022-06-22 10:34:27,504] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:27,516] {logging_mixin.py:109} INFO - [2022-06-22 10:34:27,516] {dag.py:2937} INFO - Setting next_dagrun for cso_2295_ipo_2_cso_xls.py to 2022-06-20 15:41:00+00:00
+[2022-06-22 10:34:27,529] {processor.py:171} INFO - Processing /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py took 0.778 seconds
+[2022-06-22 10:34:58,640] {processor.py:163} INFO - Started process (PID=25262) to work on /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:58,648] {processor.py:642} INFO - Processing file /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py for tasks to queue
+[2022-06-22 10:34:58,649] {logging_mixin.py:109} INFO - [2022-06-22 10:34:58,649] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:59,287] {processor.py:654} INFO - DAG(s) dict_keys(['cso_2295_ipo_2_cso_xls.py']) retrieved from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:34:59,311] {logging_mixin.py:109} INFO - [2022-06-22 10:34:59,311] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:59,323] {logging_mixin.py:109} INFO - [2022-06-22 10:34:59,323] {dag.py:2937} INFO - Setting next_dagrun for cso_2295_ipo_2_cso_xls.py to 2022-06-20 15:41:00+00:00
+[2022-06-22 10:34:59,328] {processor.py:171} INFO - Processing /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py took 0.696 seconds
+[2022-06-22 10:35:29,657] {processor.py:163} INFO - Started process (PID=25416) to work on /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:35:29,658] {processor.py:642} INFO - Processing file /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py for tasks to queue
+[2022-06-22 10:35:29,658] {logging_mixin.py:109} INFO - [2022-06-22 10:35:29,658] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:35:30,258] {processor.py:654} INFO - DAG(s) dict_keys(['cso_2295_ipo_2_cso_xls.py']) retrieved from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:35:30,283] {logging_mixin.py:109} INFO - [2022-06-22 10:35:30,282] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:30,294] {logging_mixin.py:109} INFO - [2022-06-22 10:35:30,294] {dag.py:2937} INFO - Setting next_dagrun for cso_2295_ipo_2_cso_xls.py to 2022-06-20 15:41:00+00:00
+[2022-06-22 10:35:30,300] {processor.py:171} INFO - Processing /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py took 0.645 seconds
+[2022-06-22 10:36:01,571] {processor.py:163} INFO - Started process (PID=25575) to work on /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:36:01,572] {processor.py:642} INFO - Processing file /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py for tasks to queue
+[2022-06-22 10:36:01,572] {logging_mixin.py:109} INFO - [2022-06-22 10:36:01,572] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:36:02,164] {processor.py:654} INFO - DAG(s) dict_keys(['cso_2295_ipo_2_cso_xls.py']) retrieved from /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py
+[2022-06-22 10:36:02,212] {logging_mixin.py:109} INFO - [2022-06-22 10:36:02,212] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:36:02,242] {logging_mixin.py:109} INFO - [2022-06-22 10:36:02,242] {dag.py:2937} INFO - Setting next_dagrun for cso_2295_ipo_2_cso_xls.py to 2022-06-20 15:41:00+00:00
+[2022-06-22 10:36:02,258] {processor.py:171} INFO - Processing /opt/airflow/dags/cso_2295/cso_2295_ipo_2_cso_xls.py took 0.689 seconds

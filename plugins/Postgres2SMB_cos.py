@@ -86,6 +86,14 @@ class Postgres2SMB_cos(BaseOperator):
 
     def give_xls_output(self, src_conn, dir_file, context):
         cursor, q_rows, target_rows = self.get_rows(context, src_conn)
+        f = None
+        decrypt_col_num = []
+        if self.decrypt_col is not None:
+            key = Variable.get("fernet_secret_key_asup")
+            f = Fernet(key)
+            for colno, heading in enumerate(self.headings, start=0):
+                if heading in self.decrypt_col:
+                    decrypt_col_num.append(colno)
         wb = xlwt.Workbook(encoding=self.encoding if self.encoding else 'cp1251')
         ws = wb.add_sheet(self.SheetName, cell_overwrite_ok=True)
         style = xlwt.XFStyle()

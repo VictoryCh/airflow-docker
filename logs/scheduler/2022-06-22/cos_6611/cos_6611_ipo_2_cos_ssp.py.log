@@ -1,0 +1,28 @@
+[2022-06-22 10:34:23,762] {processor.py:163} INFO - Started process (PID=25066) to work on /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:23,763] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py for tasks to queue
+[2022-06-22 10:34:23,764] {logging_mixin.py:109} INFO - [2022-06-22 10:34:23,764] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:24,423] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_ssp.py']) retrieved from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:24,438] {logging_mixin.py:109} INFO - [2022-06-22 10:34:24,438] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:24,453] {logging_mixin.py:109} INFO - [2022-06-22 10:34:24,453] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_ssp.py to None
+[2022-06-22 10:34:24,460] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py took 0.700 seconds
+[2022-06-22 10:34:55,590] {processor.py:163} INFO - Started process (PID=25228) to work on /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:55,591] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py for tasks to queue
+[2022-06-22 10:34:55,591] {logging_mixin.py:109} INFO - [2022-06-22 10:34:55,591] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:56,395] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_ssp.py']) retrieved from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:34:56,410] {logging_mixin.py:109} INFO - [2022-06-22 10:34:56,410] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:56,422] {logging_mixin.py:109} INFO - [2022-06-22 10:34:56,422] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_ssp.py to None
+[2022-06-22 10:34:56,428] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py took 0.840 seconds
+[2022-06-22 10:35:26,939] {processor.py:163} INFO - Started process (PID=25388) to work on /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:26,940] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py for tasks to queue
+[2022-06-22 10:35:26,940] {logging_mixin.py:109} INFO - [2022-06-22 10:35:26,940] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:27,653] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_ssp.py']) retrieved from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:27,678] {logging_mixin.py:109} INFO - [2022-06-22 10:35:27,678] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:27,690] {logging_mixin.py:109} INFO - [2022-06-22 10:35:27,690] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_ssp.py to None
+[2022-06-22 10:35:27,706] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py took 0.769 seconds
+[2022-06-22 10:35:58,188] {processor.py:163} INFO - Started process (PID=25531) to work on /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:58,189] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py for tasks to queue
+[2022-06-22 10:35:58,189] {logging_mixin.py:109} INFO - [2022-06-22 10:35:58,189] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:58,826] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_ssp.py']) retrieved from /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py
+[2022-06-22 10:35:58,840] {logging_mixin.py:109} INFO - [2022-06-22 10:35:58,839] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:58,849] {logging_mixin.py:109} INFO - [2022-06-22 10:35:58,849] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_ssp.py to None
+[2022-06-22 10:35:58,856] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611/cos_6611_ipo_2_cos_ssp.py took 0.670 seconds

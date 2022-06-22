@@ -1,0 +1,28 @@
+[2022-06-22 10:34:27,862] {processor.py:163} INFO - Started process (PID=25125) to work on /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:27,863] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py for tasks to queue
+[2022-06-22 10:34:27,864] {logging_mixin.py:109} INFO - [2022-06-22 10:34:27,864] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:28,136] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_pers_with_db.py']) retrieved from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:28,150] {logging_mixin.py:109} INFO - [2022-06-22 10:34:28,150] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:28,161] {logging_mixin.py:109} INFO - [2022-06-22 10:34:28,161] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_pers_with_db.py to None
+[2022-06-22 10:34:28,167] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py took 0.307 seconds
+[2022-06-22 10:34:58,221] {processor.py:163} INFO - Started process (PID=25255) to work on /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:58,222] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py for tasks to queue
+[2022-06-22 10:34:58,223] {logging_mixin.py:109} INFO - [2022-06-22 10:34:58,223] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:58,508] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_pers_with_db.py']) retrieved from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:34:58,535] {logging_mixin.py:109} INFO - [2022-06-22 10:34:58,535] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:34:58,546] {logging_mixin.py:109} INFO - [2022-06-22 10:34:58,546] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_pers_with_db.py to None
+[2022-06-22 10:34:58,586] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py took 0.372 seconds
+[2022-06-22 10:35:29,369] {processor.py:163} INFO - Started process (PID=25409) to work on /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:35:29,371] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py for tasks to queue
+[2022-06-22 10:35:29,372] {logging_mixin.py:109} INFO - [2022-06-22 10:35:29,371] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:35:29,610] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_pers_with_db.py']) retrieved from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:35:29,625] {logging_mixin.py:109} INFO - [2022-06-22 10:35:29,624] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:35:29,635] {logging_mixin.py:109} INFO - [2022-06-22 10:35:29,635] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_pers_with_db.py to None
+[2022-06-22 10:35:29,643] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py took 0.279 seconds
+[2022-06-22 10:35:59,800] {processor.py:163} INFO - Started process (PID=25551) to work on /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:35:59,805] {processor.py:642} INFO - Processing file /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py for tasks to queue
+[2022-06-22 10:35:59,807] {logging_mixin.py:109} INFO - [2022-06-22 10:35:59,806] {dagbag.py:500} INFO - Filling up the DagBag from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:36:00,088] {processor.py:654} INFO - DAG(s) dict_keys(['cos_6611_ipo_2_cos_pers_with_db.py']) retrieved from /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py
+[2022-06-22 10:36:00,102] {logging_mixin.py:109} INFO - [2022-06-22 10:36:00,102] {dag.py:2398} INFO - Sync 1 DAGs
+[2022-06-22 10:36:00,113] {logging_mixin.py:109} INFO - [2022-06-22 10:36:00,113] {dag.py:2937} INFO - Setting next_dagrun for cos_6611_ipo_2_cos_pers_with_db.py to None
+[2022-06-22 10:36:00,119] {processor.py:171} INFO - Processing /opt/airflow/dags/cos_6611_with_db/cos_6611_ipo_2_cos_pers_with_db.py took 0.321 seconds
