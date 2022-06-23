@@ -112,7 +112,7 @@ class Postgres2SMB_decrypt(BaseOperator):
                     val = cell_value
 
                 if self.check_date(val):
-                    val = datetime.datetime.strptime(val, '%Y-%m-%d').strftime('%Y%m%d')
+                    val = datetime.datetime.strptime(str(val), '%Y-%m-%d').strftime('%Y%m%d')
 
                 ws.cell(row=rowno, column=colno).value = val
         with open(dir_file, mode=self.modewr) as tfile:
@@ -162,7 +162,7 @@ class Postgres2SMB_decrypt(BaseOperator):
 
     def check_date(self, date_text, date_format='%Y-%m-%d'):
         try:
-            datetime.datetime.strptime(date_text, date_format)
+            datetime.datetime.strptime(str(date_text), date_format)
             return True
         except ValueError:
             return False
@@ -200,7 +200,7 @@ class Postgres2SMB_decrypt(BaseOperator):
                     val = cell_value
 
                 if self.check_date(val):
-                    val = datetime.datetime.strptime(val, '%Y-%m-%d').strftime('%Y%m%d')
+                    val = datetime.datetime.strptime(str(val), '%Y-%m-%d').strftime('%Y%m%d')
 
                 new_cell = lxml.fromstring(
                     '''<Cell xmlns:ss="%s" ss:StyleID="s67"><Data ss:Type="String">%s</Data></Cell>''' % (ss, val))
