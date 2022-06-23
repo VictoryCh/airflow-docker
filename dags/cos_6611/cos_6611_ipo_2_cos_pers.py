@@ -40,7 +40,7 @@ elif deployment == "PROD":  # Ниже заменяем на значения д
 
 # SQL = f'''select DATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
 #                 from {SCHEMA_source}.personal_data_actual_f('{EXEC_DATE}')'''
-SQL = f'''select DATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
+SQL = f'''select FDATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
                 from {SCHEMA_source}.personal_data_actual'''
 
 # объявление дага с журналированием
@@ -190,7 +190,7 @@ with DAG(
         task_id="transfer_cos_smb",
         postgres_conn_id=CONN_source,
         sql=SQL,
-        headings=['DATE', 'TIME', 'PERNR', 'NACHN', 'VORNA', 'MIDNM', 'ORGEH', 'PLANS', 'PLTXT', 'CHPER', 'WERKS', 'BTRTL', 'GBDAT'],
+        headings=['FDATE', 'TIME', 'PERNR', 'NACHN', 'VORNA', 'MIDNM', 'ORGEH', 'PLANS', 'PLTXT', 'CHPER', 'WERKS', 'BTRTL', 'GBDAT'],
         # samba_conn_id=CONN_target_smb,
         # share='',  # todo добавить шару
         dir_samba='/opt/airflow/result',  # todo добавить название папки в самбе
