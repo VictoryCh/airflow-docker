@@ -1,2 +1,4 @@
 /logs/
 /dags/.idea/
+/logs/*
+*.log
