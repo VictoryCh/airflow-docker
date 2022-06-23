@@ -1,5 +1,6 @@
 import datetime
 import logging
+import time
 
 import openpyxl
 import xlwt
@@ -64,6 +65,7 @@ class Postgres2SMB_decrypt(BaseOperator):
             context['task_instance'].xcom_push(key='q_rows', value=q_rows)
 
     def execute(self, context):
+        # time.sleep(5)
         dest_hook = 'SambaHook(samba_conn_id=self.samba_conn_id, share=self.share)'
         src_hook = PostgresHook(postgres_conn_id=self.postgres_conn_id)
         try:

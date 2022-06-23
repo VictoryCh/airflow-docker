@@ -7,6 +7,7 @@ from datetime import datetime
 # settings = Variable.get(name_settings, deserialize_json=True)
 # --Set Variable Dag
 from operators.biq_6611.Postgres2Postgres_decrypt import Postgres2Postgres_decrypt
+from Postgres2SMB_decrypt import Postgres2SMB_decrypt
 from airflow import DAG
 from airflow.hooks.base_hook import BaseHook
 from airflow.models import Variable
@@ -24,6 +25,7 @@ EXEC_DATE = '{{ yesterday_ds }}'
 if deployment == "DEV":
     CONN_IPO = 'IPO'
     CONN_source = 'IPO'  # Заменяем на имя коннектора системы источника
+    CONN_source2 = 'COS_DB'  # Заменяем на имя коннектора системы источника
     SCHEMA_source = 'public'
     CONN_target = 'COS_DB_dev'  # Заменяем на имя коннектора системы приемника
     SCHEMA_target = 'public'
@@ -37,6 +39,9 @@ elif deployment == "PROD":  # Ниже заменяем на значения д
     SCHEMA_target = 'public'
     ST = datetime(2022, 6, 15)  # Заменяем на дату внедрения интеграции
     SI = '0 0 * * *'
+
+SQL = f'''select FDATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
+                from {SCHEMA_source}.personal_data_actual'''
 
 # объявление дага с журналированием
 def task_success_log(context):
@@ -122,7 +127,7 @@ with DAG(
         try:
             conn_s = BaseHook.get_connection(CONN_target)
             check_connect(conn_s)
-            return 'transfer_start'
+            return 'transfer_sensor'
         except Exception:
             return 'log_err_access_target'
 
@@ -153,6 +158,19 @@ with DAG(
     getid = PythonOperator(
         task_id='getid',
         python_callable=f_getid
+    )
+
+    transfer_sensor = SqlSensor(
+        task_id='transfer_sensor',
+        conn_id=CONN_target,
+        sql='./sql/biq_6611/transfer_sensor.sql',
+        params={
+            'object_flow': OBJ_FLOW,
+            'schema': SCHEMA_target
+        },
+        poke_interval=20,
+        timeout=60 * 5,
+        mode='reschedule'
     )
 
     transfer_start = PostgresOperator(
@@ -187,10 +205,22 @@ with DAG(
         dest_schema=SCHEMA_target,
         dest_table='sap_hr_organizational_unit_actual',
         dest_cols=['objid', 'delflag', 'orgname', 'orgbegda', 'orgendda', 'orglow', 'shortname', 'objid_par1', 'lname', 'werks', 'btrtl'],
-        on_success_callback=task_success_log,
         trunc=f'''TRUNCATE TABLE {SCHEMA_target}.sap_hr_organizational_unit_actual;'''
     )
 
+    transfer_cos_smb_xlsx = Postgres2SMB_decrypt(
+        task_id="transfer_cos_smb_xlsx",
+        postgres_conn_id=CONN_source2,
+        sql=SQL,
+        # samba_conn_id=CONN_target_smb,
+        headings=['Дата', 'Время', 'Табельный', 'Фамилия', 'VORNA', 'MIDNM', 'ORGEH', 'PLANS', 'PLTXT', 'CHPER', 'WERKS', 'BTRTL', 'Дата рождения'],
+        # share='/opt',  # todo добавить шару
+        dir_samba='/opt/airflow/result',  # todo добавить название папки в самбе
+        file_name='user_new',
+        file_format='xlsx',
+        encoding='utf-8',
+        decrypt_col=['NACHN', 'VORNA', 'MIDNM', 'GBDAT'],
+    )
 
     def f_transfer_status_update(**context):
         error = context['task_instance'].xcom_pull(key='transferFailure')
@@ -211,10 +241,12 @@ with DAG(
     update_cos_status_transfer_finish = PythonOperator(
         task_id='update_cos_status_transfer_finish',
         python_callable=f_transfer_status_update,
-        trigger_rule='none_skipped'
+        trigger_rule='none_skipped',
+        on_success_callback=task_success_log
     )
 
-    log_sensor >> log_start >> getid >> check_system_source >> check_system_target >> transfer_start >> get_semaphore_id >> transfer_cos >> update_cos_status_transfer_finish  # идеальный сценарий
+    log_sensor >> log_start >> getid >> check_system_source >> check_system_target >> transfer_sensor >> transfer_start >> \
+    get_semaphore_id >> transfer_cos >> transfer_cos_smb_xlsx >> update_cos_status_transfer_finish  # идеальный сценарий
     check_system_source >> Label(
         "no network access") >> log_err_access_source  # нет сетевого доступа к системе источника
     check_system_target >> Label(
