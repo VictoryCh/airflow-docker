@@ -24,7 +24,7 @@ class Postgres2SMB_decrypt(BaseOperator):
     @apply_defaults
     def __init__(self, sql, postgres_conn_id=None, parameters=None, autocommit=False, rows_chunk=5000,
                  samba_conn_id=None, headings=None, share=None, dir_samba=None, file_name='test', file_format='csv', delimiter=';',
-                 encoding='utf-8', typ=None, modewr='wb', SheetName='Лист1', template_excel_xml=None,
+                 encoding='utf-8', typ=None, modewr='wb', SheetName='Лист1', sheet_name_sql=None, template_excel_xml=None,
                  decrypt_col=None, *args, **kwargs):
         super(Postgres2SMB_decrypt, self).__init__(*args, **kwargs)
         if parameters is None:
@@ -45,6 +45,7 @@ class Postgres2SMB_decrypt(BaseOperator):
         self.typ = typ
         self.modewr = modewr
         self.SheetName = SheetName
+        self.sheet_name_sql = sheet_name_sql
         self.template_excel_xml = template_excel_xml
         self.decrypt_col = decrypt_col # пишем из основного запроса
         self.outputs = {'xml': self.give_excel_xml_output,  # self.give_xml_output,
@@ -114,7 +115,10 @@ class Postgres2SMB_decrypt(BaseOperator):
                     val = cell_value
 
                 if self.check_date(val):
-                    val = datetime.datetime.strptime(str(val), '%Y-%m-%d').strftime('%Y%m%d')
+                    if val == '9999-12-31':
+                        val = ''
+                    else:
+                        val = datetime.datetime.strptime(str(val), '%Y-%m-%d').strftime('%Y%m%d')
 
                 ws.cell(row=rowno, column=colno).value = val
         with open(dir_file, mode=self.modewr) as tfile:
@@ -123,37 +127,47 @@ class Postgres2SMB_decrypt(BaseOperator):
         return q_rows
 
 
+    def get_all_sheet_name(self, context, src_conn):
+        cursor = src_conn.cursor()
+        logging.info('execute sql: %s', self.sheet_name_sql)
+        cursor.execute(query=self.render_template(self.sheet_name_sql, context=context), vars=self.parameters)
+        sheetName = cursor.fetchall()
+        logging.info('SheetName ALL: %s', sheetName)
+        cursor.close()
+        return sheetName
+
     def give_xls_output(self, src_conn, dir_file, context):
         cursor, q_rows, target_rows = self.get_rows(context, src_conn)
-        f = None
-        decrypt_col_num = []
-        if self.decrypt_col is not None:
-            key = Variable.get("fernet_secret_key_asup")
-            f = Fernet(key)
-            for colno, heading in enumerate(self.headings, start=0):
-                if heading in self.decrypt_col:
-                    decrypt_col_num.append(colno)
 
-        logging.info("Data transfer: %s rows", q_rows)
         wb = xlwt.Workbook(encoding=self.encoding if self.encoding else 'cp1251')
-        ws = wb.add_sheet(self.SheetName, cell_overwrite_ok=True)
         style = xlwt.XFStyle()
         style.num_format_str = 'dd.mm.yyyy'
-        decrypt_col_num = []
+
+        if self.sheet_name_sql is not None:
+            self.SheetName = self.get_all_sheet_name(context, src_conn)
+            for _, row in enumerate(self.SheetName, start=0):
+                for _, sheetName in enumerate(row, start=0):
+                    ws = wb.add_sheet(sheetName, cell_overwrite_ok=True)
+                    filter_rows = filter(lambda c: c[0] == sheetName, target_rows)
+                    self.write_rows(style, filter_rows, ws)
+        else:
+            ws = wb.add_sheet(self.SheetName, cell_overwrite_ok=True)
+            self.write_rows(style, target_rows, ws)
+
+        with open(dir_file, mode=self.modewr) as tfile:
+            wb.save(tfile)
+        cursor.close()
+        return q_rows
+
+    def write_rows(self, style, target_rows, ws):
         for colno, heading in enumerate(self.headings, start=0):
             ws.write(r=0, c=colno, label=heading)
         for rowno, row in enumerate(target_rows, start=1):
             for colno, cell_value in enumerate(row, start=0):
                 if isinstance(cell_value, datetime.date):
                     ws.write(r=rowno, c=colno, label=cell_value, style=style)
-                elif colno in decrypt_col_num:
-                    ws.write(r=rowno, c=colno, label=f.decrypt(cell_value.encode('utf-8')).decode('utf-8'))
                 else:
                     ws.write(r=rowno, c=colno, label=cell_value)
-        with open(dir_file, mode=self.modewr) as tfile:
-            wb.save(tfile)
-        cursor.close()
-        return q_rows
 
     def get_rows(self, context, src_conn):
         cursor = src_conn.cursor()

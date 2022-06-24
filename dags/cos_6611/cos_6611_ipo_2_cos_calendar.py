@@ -18,12 +18,12 @@ from airflow.utils.edgemodifier import Label
 from Postgres2SMB_decrypt import Postgres2SMB_decrypt
 
 deployment = Variable.get("DEPLOYMENT")
-TAG_DAG = ['6611', 'cos', 'ipo']
+TAG_DAG = ['6611', 'cos', 'ipo', 'calendar']
 OBJ_FLOW = 53
 if deployment == "DEV":
     CONN_IPO = 'IPO'
-    # CONN_source = 'IPO'  # Заменяем на имя коннектора системы источника
-    CONN_source = 'COS_db'  # Заменяем на имя коннектора системы источника
+    CONN_source = 'IPO'  # Заменяем на имя коннектора системы источника
+    # CONN_source = 'COS_db'  # Заменяем на имя коннектора системы источника
     SCHEMA_source = 'public'
     CONN_target_smb = 'COS_smb'  # Заменяем на имя коннектора системы приемника
     ST = datetime(2022, 4, 18)  # Заменяем на дату внедрения интеграции
@@ -125,12 +125,12 @@ with DAG(
     # проверка сетевого доступа
     def f_check_nwa_s():
         try:
-            conn_s = BaseHook.get_connection(CONN_source)
-            conn_host = conn_s.host
-            conn_port = conn_s.port
-            clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            clientsocket.connect((conn_host, conn_port))
-            clientsocket.send(b'\n')
+            # conn_s = BaseHook.get_connection(CONN_source)
+            # conn_host = conn_s.host
+            # conn_port = conn_s.port
+            # clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            # clientsocket.connect((conn_host, conn_port))
+            # clientsocket.send(b'\n')
             return f'check_system_target'
         except Exception:
             return f'log_err_access_source'
@@ -146,7 +146,7 @@ with DAG(
         try:
             # conn_s = BaseHook.get_connection(CONN_target_smb)
             # check_connect(conn_s)
-            return 'transfer_cos_smb'
+            return 'transfer_t001p'
         except Exception:
             return 'log_err_access_target'
 
@@ -180,10 +180,24 @@ with DAG(
         python_callable=f_getid
     )
 
+    transfer_t001p = Postgres2SMB_decrypt(
+        task_id="transfer_t001p",
+        postgres_conn_id=CONN_source,
+        sql=f'''select werks, btrtl, btext, mofid from {SCHEMA_source}.t001p where mofid is not null;''',
+        # samba_conn_id=CONN_target_smb,
+        headings=['WERKS', 'BTRTL', 'BTEXT', 'MOFID'],
+        # share='',  # todo добавить шару
+        dir_samba='/opt/airflow/result',  # todo добавить название папки в самбе
+        file_name='t001p',
+        SheetName='t001p',
+        file_format='xls',
+        encoding='utf-8'
+    )
+
     transfer_cos_smb = Postgres2SMB_decrypt(
         task_id="transfer_cos_smb",
         postgres_conn_id=CONN_source,
-        sql=f'''select MOFID, DATE, HOLIDAY, TXT_LONG from {SCHEMA_source}.calendar_on_request_v;''',
+        sql=f'''SELECT MOFID, DATE, HOLIDAY, TXT_LONG FROM {SCHEMA_source}.iscal_day where mofid in (SELECT mofid FROM {SCHEMA_source}.t001p where mofid is not null group by mofid) order by mofid desc;''',
         # samba_conn_id=CONN_target_smb,
         headings=['MOFID', 'DATE', 'HOLIDAY', 'TXT_LONG'],
         # share='',  # todo добавить шару
@@ -191,11 +205,11 @@ with DAG(
         file_name='calendar',
         file_format='xls',
         encoding='utf-8',
-        decr_col=['MOFID', 'TXT_LONG'],
+        sheet_name_sql=f'SELECT MOFID FROM {SCHEMA_source}.t001p where mofid is not null and mofid in (SELECT mofid FROM {SCHEMA_source}.iscal_day group by mofid) group by mofid order by mofid desc;',
         on_success_callback=task_success_log
     )
     # log_sensor >> log_start >> getid >> check_system_source >> check_system_target >> branching >> transfer_cos_smb  # идеальный сценарий
-    log_sensor >> log_start >> getid >> check_system_source >> check_system_target >> transfer_cos_smb  # идеальный сценарий
+    log_sensor >> log_start >> getid >> check_system_source >> check_system_target >> transfer_t001p >> transfer_cos_smb  # идеальный сценарий
     check_system_source >> Label(
         "no network access") >> log_err_access_source  # нет сетевого доступа к системе источника
     check_system_target >> Label(

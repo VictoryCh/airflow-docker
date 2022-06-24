@@ -48,7 +48,7 @@ class Postgres2Postgres_decrypt(BaseOperator):
 
             f = None
             decrypt_col_num = []
-            if self.decrypt_column is not   None:
+            if self.decrypt_column is not None:
                 logging.info("Decrypt_col: %s ", self.decrypt_column)
                 key = Variable.get("fernet_secret_key_asup")
                 f = Fernet(key)

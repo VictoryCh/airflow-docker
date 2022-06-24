@@ -160,47 +160,6 @@
           <Data ss:Type="String">08:59:56</Data>
         </Cell>
         <Cell ss:StyleID="s67">
-          <Data ss:Type="String">00000382</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">Полякова</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">Полина</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">Петровна</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">00102716</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">8093</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">Операционист</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">00102716</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">1900</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">10</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">19680129</Data>
-        </Cell>
-      </Row>
-      <Row ss:AutoFitHeight="0">
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">20220620</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
-          <Data ss:Type="String">08:59:56</Data>
-        </Cell>
-        <Cell ss:StyleID="s67">
           <Data ss:Type="String">00003876</Data>
         </Cell>
         <Cell ss:StyleID="s67">
@@ -232,6 +191,9 @@
         </Cell>
         <Cell ss:StyleID="s67">
           <Data ss:Type="String">19771008</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">20220620</Data>
         </Cell>
       </Row>
       <Row ss:AutoFitHeight="0">
@@ -273,6 +235,53 @@
         </Cell>
         <Cell ss:StyleID="s67">
           <Data ss:Type="String">19750207</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">20220620</Data>
+        </Cell>
+      </Row>
+      <Row ss:AutoFitHeight="0">
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">99991231</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">08:59:56</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">00000382</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">Полякова</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">Полина</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">Петровна</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">00102716</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">8093</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">Операционист</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">00102716</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">1900</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">10</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">19680129</Data>
+        </Cell>
+        <Cell ss:StyleID="s67">
+          <Data ss:Type="String">99991231</Data>
         </Cell>
       </Row>
     </Table>

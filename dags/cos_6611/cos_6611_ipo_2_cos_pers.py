@@ -40,7 +40,7 @@ elif deployment == "PROD":  # Ниже заменяем на значения д
 
 # SQL = f'''select DATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
 #                 from {SCHEMA_source}.personal_data_actual_f('{EXEC_DATE}')'''
-SQL = f'''select FDATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT
+SQL = f'''select FDATE, TIME, PERNR, NACHN, VORNA, MIDNM, ORGEH, PLANS, PLTXT, CHPER, WERKS, BTRTL, GBDAT, FDATE 
                 from {SCHEMA_source}.personal_data_actual'''
 
 # объявление дага с журналированием
